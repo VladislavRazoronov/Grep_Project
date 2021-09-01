@@ -1,0 +1,5 @@
+"D:\Program_Files\JetBrains\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - MinGW Makefiles" D:\Projects\Parallel_grep
+-- Found Boost: D:/Program_Files/MSYS2/mingw64/include (found version "1.74.0") found components: filesystem 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/Projects/Parallel_grep/cmake-build-debug

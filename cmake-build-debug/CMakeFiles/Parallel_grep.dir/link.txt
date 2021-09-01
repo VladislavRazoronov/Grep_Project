@@ -1,0 +1,3 @@
+"D:\Program_Files\JetBrains\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\Parallel_grep.dir/objects.a
+D:\Program_Files\MSYS2\mingw64\bin\ar.exe cr CMakeFiles\Parallel_grep.dir/objects.a @CMakeFiles\Parallel_grep.dir\objects1.rsp
+D:\Program_Files\MSYS2\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\Parallel_grep.dir/objects.a -Wl,--no-whole-archive -o Parallel_grep.exe -Wl,--out-implib,libParallel_grep.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Parallel_grep.dir\linklibs.rsp

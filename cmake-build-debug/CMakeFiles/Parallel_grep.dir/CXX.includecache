@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/Projects/Parallel_grep/main.cpp
+iostream
+-
+tbb/concurrent_queue.h
+-
+tbb/concurrent_hash_map.h
+-
+archive.h
+-
+archive_entry.h
+-
+boost/filesystem.hpp
+-
+sstream
+-
+queue
+-
+thread
+-
+

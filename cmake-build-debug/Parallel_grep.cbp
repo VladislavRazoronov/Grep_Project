@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Parallel_grep"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\Program_Files\;CMake Files\..\..\Program_Files\MSYS2\;CMake Files\..\..\Program_Files\MSYS2\mingw64\;CMake Files\..\..\Program_Files\MSYS2\mingw64\lib\;CMake Files\..\..\Program_Files\MSYS2\mingw64\lib\cmake\;CMake Files\..\..\Program_Files\MSYS2\mingw64\lib\cmake\tbb\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Projects/Parallel_grep/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Parallel_grep">
+				<Option output="D:/Projects/Parallel_grep/cmake-build-debug/Parallel_grep.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Projects/Parallel_grep/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/../../../../include/c++/10.2.0"/>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/../../../../include/c++/10.2.0/x86_64-w64-mingw32"/>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/../../../../include/c++/10.2.0/backward"/>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/include"/>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/../../../../include"/>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/include-fixed"/>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 Parallel_grep"/>
+					<CompileFile command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Parallel_grep/fast">
+				<Option output="D:/Projects/Parallel_grep/cmake-build-debug/Parallel_grep.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Projects/Parallel_grep/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/../../../../include/c++/10.2.0"/>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/../../../../include/c++/10.2.0/x86_64-w64-mingw32"/>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/../../../../include/c++/10.2.0/backward"/>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/include"/>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/../../../../include"/>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/include-fixed"/>
+					<Add directory="D:/Program_Files/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/10.2.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 Parallel_grep/fast"/>
+					<CompileFile command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/Projects/Parallel_grep/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/Projects/Parallel_grep/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Program_Files/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Projects/Parallel_grep/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Projects/Parallel_grep/main.cpp">
+			<Option target="Parallel_grep"/>
+		</Unit>
+		<Unit filename="D:/Projects/Parallel_grep/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="D:/Projects/Parallel_grep/../../Program_Files/MSYS2/mingw64/lib/cmake/tbb/TBBConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\Program_Files\MSYS2\mingw64\lib\cmake\tbb\"/>
+		</Unit>
+		<Unit filename="D:/Projects/Parallel_grep/../../Program_Files/MSYS2/mingw64/lib/cmake/tbb/TBBConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\Program_Files\MSYS2\mingw64\lib\cmake\tbb\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
