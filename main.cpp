@@ -7,25 +7,47 @@
 #include <sstream>
 #include <queue>
 #include <thread>
+#include <chrono>
+#include <cstdlib>
+#include <condition_variable>
 
-bool check_phrase(std::string& text, std::string& phrase, int& position){
-    if(text.size() < position){
-        return false;
-    }
-    for(int i=0; i<phrase.size();i++){
-        if(text[position+i] != phrase[i])
-            return false;
-    }
-    return true;
-}
-
-void process_file(tbb::concurrent_queue<std::string>& file_queue, std::string& phrase, tbb::concurrent_hash_map<std::string,std::string>& files){
-    while(!file_queue.empty()){
-        std::string file;
+void process_file(tbb::concurrent_queue<std::string>& file_queue, std::string& phrase,
+                  tbb::concurrent_hash_map<std::string,std::string>& files, bool& read_finished){
+    while(!file_queue.empty() || !read_finished){
+        std::string filepath;
         bool contains = false;
-        if(file_queue.try_pop(file)){
+        if(file_queue.try_pop(filepath)){
+            struct archive *a;
+            struct archive_entry *entry;
+            int r;
+            std::string text;
+
+            a = archive_read_new();
+            archive_read_support_filter_all(a);
+            archive_read_support_format_all(a);
+            r = archive_read_open_filename(a,filepath.c_str(), 10240);
+            if(r!= ARCHIVE_OK){
+                continue;
+            }
+            while (archive_read_next_header(a, &entry) == ARCHIVE_OK) {
+
+                std::string filename = archive_entry_pathname(entry);
+                if(filename.substr(filename.size()-3, 3) == "txt" && archive_entry_size(entry) < 10000000){
+                    text.append(filepath);text.append("/");text.append(filename);text.append("\t");
+                    char buff[1024];
+                    while (true){
+                        auto t = archive_read_data(a,buff,1024);
+                        if (t == 0){
+                            break;
+                        }
+                        text.append(buff);
+                    }
+                    archive_entry_clear(entry);
+                }
+            }
+            archive_read_close(a);
             std::string filename;
-            std::istringstream stream(file);
+            std::istringstream stream(text);
             std::getline(stream, filename,'\t');
             tbb::concurrent_hash_map<std::string,std::string>::accessor acc;
             int line_num = 1;
@@ -44,48 +66,13 @@ void process_file(tbb::concurrent_queue<std::string>& file_queue, std::string& p
     }
 }
 
-void read_files(std::string& path, tbb::concurrent_queue<std::string>& file_queue){
-    std::queue<boost::filesystem::directory_iterator> paths;
-    paths.push(boost::filesystem::directory_iterator(path));
-    while(!paths.empty()){
-        boost::filesystem::directory_iterator iter = paths.front();
-        paths.pop();
-        for(iter; iter!= boost::filesystem::directory_iterator(); iter++){
-            if(boost::filesystem::is_directory(iter->path()))
-                paths.push(boost::filesystem::directory_iterator(iter->path()));
-            else{
-                struct archive *a;
-                struct archive_entry *entry;
-                int r;
-
-                a = archive_read_new();
-                archive_read_support_filter_all(a);
-                archive_read_support_format_all(a);
-                r = archive_read_open_filename(a,iter->path().generic_string().c_str(), 10240);
-                if(r!= ARCHIVE_OK){
-                    continue;
-                }
-                while (archive_read_next_header(a, &entry) == ARCHIVE_OK) {
-                    std::string text;
-                    std::string filename = archive_entry_pathname(entry);
-                    if(filename.substr(filename.size()-3, 3) == "txt" && archive_entry_size(entry) < 10000000){
-                        text.append(iter->path().generic_string()+filename+"\t");
-                    }
-                    char buff[1024];
-                    while (true){
-                        auto t = archive_read_data(a,buff,1024);
-                        if (t == 0){
-                            break;
-                        }
-                        text.append(buff);
-                    }
-                    file_queue.push(text);
-                    archive_entry_clear(entry);
-                }
-                archive_read_close(a);
-            }
+void read_files(std::string& path, tbb::concurrent_queue<std::string>& file_queue, bool& read_finished){
+    for(boost::filesystem::recursive_directory_iterator iter(path); iter != boost::filesystem::recursive_directory_iterator(); iter++){
+        if(!boost::filesystem::is_directory(iter->path())){
+            file_queue.push(iter->path().generic_string());
         }
     }
+    read_finished = true;
 }
 
 bool compare_by_name(const std::pair<std::string, std::string>& operand1,const std::pair<std::string, std::string>& operand2){
@@ -124,15 +111,14 @@ int main(int argc, char** argv){
     std::vector<std::thread> thread_list;
     tbb::concurrent_queue<std::string> file_queue;
     tbb::concurrent_hash_map<std::string,std::string> output_text;
-    std::thread reader(read_files,std::ref(archive_path),std::ref(file_queue));
+    bool read_finished = false;
+    std::thread reader(read_files,std::ref(archive_path),std::ref(file_queue),std::ref(read_finished));
+    for(int i=0;i<threads;i++){
+        thread_list.emplace_back(process_file,std::ref(file_queue),std::ref(phrase),std::ref(output_text),std::ref(read_finished));
+    }
     if(reader.joinable()){
         reader.join();
     }
-    std::cout<<"reading finished"<<std::endl;
-    for(int i=0;i<threads;i++){
-        thread_list.emplace_back(process_file,std::ref(file_queue),std::ref(phrase),std::ref(output_text));
-    }
-    std::cout<<"Threads started"<<std::endl;
     for(int i=0;i<threads;i++){
         if(thread_list[i].joinable())
             thread_list[i].join();
