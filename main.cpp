@@ -11,7 +11,22 @@
 #include <cstdlib>
 #include <condition_variable>
 
-void process_file(tbb::concurrent_queue<std::string>& file_queue, std::string& phrase,
+inline std::chrono::steady_clock::time_point get_current_time_fenced()
+{
+    std::atomic_thread_fence(std::memory_order_seq_cst);
+    auto res_time = std::chrono::steady_clock::now();
+    std::atomic_thread_fence(std::memory_order_seq_cst);
+    return res_time;
+
+}
+
+template<class D>
+        inline long long to_ms(const D& d)
+        {
+    return std::chrono::duration_cast<std::chrono::milliseconds>(d).count();
+        }
+
+void process_file(tbb::concurrent_bounded_queue<std::string>& file_queue, std::string& phrase,
                   tbb::concurrent_hash_map<std::string,std::string>& files, bool& read_finished){
     while(!file_queue.empty() || !read_finished){
         std::string filepath;
@@ -66,7 +81,7 @@ void process_file(tbb::concurrent_queue<std::string>& file_queue, std::string& p
     }
 }
 
-void read_files(std::string& path, tbb::concurrent_queue<std::string>& file_queue, bool& read_finished){
+void read_files(std::string& path, tbb::concurrent_bounded_queue<std::string>& file_queue, bool& read_finished){
     for(boost::filesystem::recursive_directory_iterator iter(path); iter != boost::filesystem::recursive_directory_iterator(); iter++){
         if(!boost::filesystem::is_directory(iter->path())){
             file_queue.push(iter->path().generic_string());
@@ -110,11 +125,13 @@ int main(int argc, char** argv){
     }
     std::vector<std::thread> thread_list;
     tbb::concurrent_queue<std::string> file_queue;
+    tbb::concurrent_bounded_queue<std::string> File_queue;
+    File_queue.set_capacity(100);
     tbb::concurrent_hash_map<std::string,std::string> output_text;
     bool read_finished = false;
-    std::thread reader(read_files,std::ref(archive_path),std::ref(file_queue),std::ref(read_finished));
+    std::thread reader(read_files,std::ref(archive_path),std::ref(File_queue),std::ref(read_finished));
     for(int i=0;i<threads;i++){
-        thread_list.emplace_back(process_file,std::ref(file_queue),std::ref(phrase),std::ref(output_text),std::ref(read_finished));
+        thread_list.emplace_back(process_file,std::ref(File_queue),std::ref(phrase),std::ref(output_text),std::ref(read_finished));
     }
     if(reader.joinable()){
         reader.join();
